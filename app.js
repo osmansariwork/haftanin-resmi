@@ -109,6 +109,8 @@ function renderApp(weeks) {
 
   const btn = document.getElementById('upload-btn');
   if (btn) btn.addEventListener('click', openModal);
+
+  bindFatyaSurprise();
 }
 
 function renderWeek(week, idx, total) {
@@ -136,8 +138,9 @@ function renderWeek(week, idx, total) {
 }
 
 function photoCard(photo, name, isCurrent) {
+  const surpriseAttr = (name === 'Fatya' && photo) ? 'id="fatya-photo"' : '';
   const inner = photo
-    ? `<div class="photo-wrapper">
+    ? `<div class="photo-wrapper" ${surpriseAttr}>
          <img src="${photo.image_url}" alt="${name}'ın fotoğrafı" loading="lazy">
        </div>`
     : `<div class="photo-placeholder">
@@ -348,6 +351,63 @@ async function doUpload(file, userName, weekStart) {
     .from('photos')
     .insert({ week_start: weekStart, user_name: userName, image_url: publicUrl });
   if (dbErr) throw dbErr;
+}
+
+// ─── Sürpriz ─────────────────────────────────────────────────────────────────
+function bindFatyaSurprise() {
+  const el = document.getElementById('fatya-photo');
+  if (!el) return;
+
+  let pressTimer = null;
+
+  function startPress(e) {
+    pressTimer = setTimeout(showSurprise, 5000);
+  }
+
+  function cancelPress() {
+    clearTimeout(pressTimer);
+  }
+
+  el.addEventListener('touchstart',  startPress,  { passive: true });
+  el.addEventListener('touchend',    cancelPress);
+  el.addEventListener('touchcancel', cancelPress);
+  el.addEventListener('touchmove',   cancelPress);
+  el.addEventListener('mousedown',   startPress);
+  el.addEventListener('mouseup',     cancelPress);
+  el.addEventListener('mouseleave',  cancelPress);
+  el.addEventListener('contextmenu', e => e.preventDefault());
+}
+
+function showSurprise() {
+  const overlay  = document.getElementById('surprise-overlay');
+  const container = document.getElementById('surprise-hearts');
+
+  // Kalpleri oluştur
+  container.innerHTML = '';
+  const emojis = ['❤️', '💕', '💗', '💖', '💝', '🌸', '✨'];
+  for (let i = 0; i < 22; i++) {
+    const h = document.createElement('span');
+    h.className   = 'floating-heart';
+    h.textContent = emojis[Math.floor(Math.random() * emojis.length)];
+    h.style.left             = `${Math.random() * 100}%`;
+    h.style.fontSize         = `${1.2 + Math.random() * 2.2}rem`;
+    h.style.animationDuration = `${2.5 + Math.random() * 3}s`;
+    h.style.animationDelay   = `${Math.random() * 2.5}s`;
+    container.appendChild(h);
+  }
+
+  overlay.classList.remove('hidden');
+  requestAnimationFrame(() => {
+    requestAnimationFrame(() => overlay.classList.add('active'));
+  });
+
+  setTimeout(() => {
+    overlay.classList.remove('active');
+    setTimeout(() => {
+      overlay.classList.add('hidden');
+      container.innerHTML = '';
+    }, 700);
+  }, 5000);
 }
 
 // ─── Start ────────────────────────────────────────────────────────────────────
