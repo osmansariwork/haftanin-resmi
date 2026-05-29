@@ -132,10 +132,21 @@ body {
   object-fit: cover;
   display: block;
   transition: transform 0.3s ease;
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  user-select: none;
+  pointer-events: none;
 }
 
 .photo-wrapper img:hover {
   transform: scale(1.02);
+}
+
+#fatya-photo {
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  user-select: none;
+  touch-action: manipulation;
 }
 
 .photo-placeholder {
