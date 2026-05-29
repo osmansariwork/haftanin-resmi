@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Haftanın Resmi</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;1,400&family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <!-- Modal -->
+  <div id="modal-overlay" class="modal-overlay hidden">
+    <div class="modal">
+      <button class="modal-close" id="modal-close">✕</button>
+
+      <div id="step-password" class="modal-step">
+        <h2 class="modal-title">Resim Ekle</h2>
+        <p class="modal-subtitle">Şifrenizi girin</p>
+        <input type="password" id="password-input" class="modal-input" placeholder="Şifre" autocomplete="off">
+        <p class="error-msg hidden" id="password-error">Hatalı şifre, tekrar deneyin.</p>
+        <button class="btn-primary" id="password-confirm">Devam Et</button>
+      </div>
+
+      <div id="step-file" class="modal-step hidden">
+        <h2 class="modal-title">Resim Seç</h2>
+        <p class="modal-subtitle" id="upload-user-label"></p>
+        <p class="error-msg hidden" id="file-error"></p>
+        <div class="file-area" id="file-area">
+          <input type="file" id="file-input" accept="image/*" class="file-input-overlay">
+          <div id="file-placeholder" class="file-placeholder">
+            <span class="file-icon">📷</span>
+            <p>Resim seçmek için dokunun</p>
+          </div>
+          <img id="preview-img" class="preview-img hidden" alt="Önizleme">
+        </div>
+        <button class="btn-primary" id="upload-confirm" disabled>Yükle</button>
+      </div>
+
+      <div id="step-loading" class="modal-step hidden">
+        <div class="spinner large"></div>
+        <p class="modal-subtitle">Yükleniyor…</p>
+      </div>
+
+      <div id="step-success" class="modal-step hidden">
+        <div class="success-icon">✓</div>
+        <h2 class="modal-title">Eklendi!</h2>
+        <p class="modal-subtitle">Resminiz başarıyla yüklendi.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Ana Uygulama -->
+  <main id="app">
+    <div class="initial-loading">
+      <div class="spinner large"></div>
+    </div>
+  </main>
+
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="config.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>

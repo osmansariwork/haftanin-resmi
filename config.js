@@ -1,0 +1,3 @@
+// Supabase bilgilerini buraya girin
+const SUPABASE_URL = 'https://kcwkfklnwdawmmmhfucr.supabase.co';
+const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Imtjd2tma2xud2Rhd21tbWhmdWNyIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODAwNjI1OTQsImV4cCI6MjA5NTYzODU5NH0.GSsYylFXuLS1G3MnsKxnyL1aG_MSEVhAsjHKu0jDutQ';
